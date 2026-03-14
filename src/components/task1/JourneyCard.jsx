@@ -9,6 +9,12 @@ export function JourneyCard({
   imagePosition = 'left',
   carouselSlides = [],
   enableHoverAnimation = false,
+  showWowBubbles = false,
+  className,
+  carouselSlideClassName,
+  carouselTitleClassName,
+  carouselImageWrapClassName,
+  carouselImageClassName,
 }) {
   const [isHovered, setIsHovered] = useState(true)
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -39,7 +45,7 @@ export function JourneyCard({
 
   return (
     <div
-      className="journey-card"
+      className={['journey-card', className].filter(Boolean).join(' ')}
       style={{
         backgroundColor: hasCarousel ? 'transparent' : cardBg,
         color: '#fff',
@@ -60,6 +66,12 @@ export function JourneyCard({
           }}
           aria-label="Carousel"
         >
+          {showWowBubbles && (
+            <>
+              <img src="/assets/wow.png" alt="" className="journey-card__carousel-deco journey-card__carousel-deco--top-left" aria-hidden />
+              <img src="/assets/wow.png" alt="" className="journey-card__carousel-deco journey-card__carousel-deco--bottom-right" aria-hidden />
+            </>
+          )}
           <div className="journey-card__carousel-btn-wrap journey-card__carousel-btn-wrap--prev">
             <span className="journey-card__carousel-btn-shape" aria-hidden>
             <div className='journey-card__carousel-btn-shape-svg'></div>
@@ -76,14 +88,29 @@ export function JourneyCard({
               </svg>
             </button>
           </div>
-          <div className="journey-card__carousel-slide">
-            {slide?.title && (
-              <h3 className="journey-card__carousel-title">{slide.title}</h3>
-            )}
-            {slide?.image && (
-              <div className="journey-card__carousel-image-wrap">
-                <img src={slide.image} alt="" className="journey-card__carousel-image" />
-              </div>
+          <div className={['journey-card__carousel-slide', slide?.layout === 'imageLeft' ? 'journey-card__carousel-slide--image-left' : '', carouselSlideClassName].filter(Boolean).join(' ')}>
+            {slide?.layout === 'imageLeft' ? (
+              <>
+                {slide?.image && (
+                  <div className={['journey-card__carousel-image-wrap', carouselImageWrapClassName].filter(Boolean).join(' ')}>
+                    <img src={slide.image} alt="" className={['journey-card__carousel-image', carouselImageClassName].filter(Boolean).join(' ')} />
+                  </div>
+                )}
+                {slide?.title && (
+                  <h3 className={['journey-card__carousel-title', carouselTitleClassName].filter(Boolean).join(' ')}>{slide.title}</h3>
+                )}
+              </>
+            ) : (
+              <>
+                {slide?.title && (
+                  <h3 className={['journey-card__carousel-title', carouselTitleClassName].filter(Boolean).join(' ')}>{slide.title}</h3>
+                )}
+                {slide?.image && (
+                  <div className={['journey-card__carousel-image-wrap', carouselImageWrapClassName].filter(Boolean).join(' ')}>
+                    <img src={slide.image} alt="" className={['journey-card__carousel-image', carouselImageClassName].filter(Boolean).join(' ')} />
+                  </div>
+                )}
+              </>
             )}
           </div>
           <div className="journey-card__carousel-btn-wrap journey-card__carousel-btn-wrap--next">

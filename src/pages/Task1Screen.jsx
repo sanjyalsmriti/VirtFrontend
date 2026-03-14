@@ -12,9 +12,15 @@ const JOURNEY_CARDS = [
     bgColor: 'var(--color-card-red)',
     image: '/assets/person_1.png',
     imagePosition: 'left',
+    showWowBubbles: true,
     carouselSlides: [
-      { title: 'Your roadmap,\nclear from day one.', image: '/assets/person_1.png' },
-      { title: 'Curated paths\nfor every goal.', image: '/assets/person_1.png' },
+      {
+        layout: 'imageLeft',
+        title: 'Clarity unlocked—\nstickers, sips, and skills\nall in one go!',
+        image: '/assets/person_3.png',
+        titleClassName: 'journey-card__carousel-title--right',
+        imageClassName: 'journey-card__carousel-image--overflow-bottom',
+      },
     ],
   },
   {
@@ -109,7 +115,7 @@ export default function Task1Screen() {
         }}
       >
         {JOURNEY_CARDS.map((card, index) => (
-          <JourneyCard key={card.id} {...card} enableHoverAnimation={index < 2} />
+          <JourneyCard key={card.id} {...card} enableHoverAnimation={index < 2} showWowBubbles={card.showWowBubbles} />
         ))}
       </div>
     </PageLayout>
