@@ -8,22 +8,20 @@ export function JourneyCard({
   image,
   imagePosition = 'left',
   carouselSlides = [],
+  enableHoverAnimation = false,
 }) {
   const [isHovered, setIsHovered] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
 
-  function handleMouseEnter(e) {
-    e.currentTarget.style.transform = 'translateY(-4px)'
+  function handleMouseEnter() {
     setIsHovered(true)
   }
-  function handleMouseLeave(e) {
-    e.currentTarget.style.transform = 'translateY(0)'
+  function handleMouseLeave() {
     setIsHovered(false)
     setCurrentSlide(0)
   }
 
-  const hasCarousel = carouselSlides.length > 0
-  const showCarousel = hasCarousel && isHovered
+  const hasCarousel = carouselSlides.length > 0 && enableHoverAnimation
   const slide = carouselSlides[currentSlide]
   const canGoPrev = currentSlide > 0
   const canGoNext = currentSlide < carouselSlides.length - 1
@@ -37,37 +35,29 @@ export function JourneyCard({
     setCurrentSlide((i) => Math.min(carouselSlides.length - 1, i + 1))
   }
 
+  const cardBg = bgColor ?? '#2d3748'
+
   return (
     <div
       className="journey-card"
       style={{
-        backgroundColor: bgColor,
+        backgroundColor: hasCarousel ? 'transparent' : cardBg,
         color: '#fff',
-        transition: 'transform 0.2s ease',
+        overflow: 'visible',
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {!showCarousel && image && (
-        <div
-          className={`journey-card__illustration journey-card__illustration--${imagePosition}`}
-          aria-hidden
-        >
-          <img src={image} alt="" className="journey-card__person" />
-        </div>
-      )}
-      {!showCarousel && (
-        <div className="journey-card__content">
-          <h2 className="journey-card__title">{title}</h2>
-          <p className="journey-card__subtitle">{subtitle}</p>
-          <p className="journey-card__body">{body}</p>
-        </div>
-      )}
-
-      {showCarousel && (
+      {/* Layer 1: Carousel – visible after hover, fades in as front vanishes */}
+      {hasCarousel && (
         <div
           className="journey-card__carousel"
-          style={{ backgroundColor: bgColor }}
+          style={{
+            backgroundColor: cardBg,
+            opacity: isHovered ? 1 : 0,
+            transition: 'opacity 0.5s ease',
+            pointerEvents: isHovered ? 'auto' : 'none',
+          }}
           aria-label="Carousel"
         >
           <button
@@ -104,6 +94,32 @@ export function JourneyCard({
           </button>
         </div>
       )}
+
+      {/* Layer 2: Front card – whole card look; on hover it slides left and fades (container stays put) */}
+      <div
+        className="journey-card__front"
+        style={{
+          backgroundColor: cardBg,
+          transform: hasCarousel && isHovered ? 'translateX(-100%)' : 'translateX(0)',
+          opacity: hasCarousel && isHovered ? 0 : 1,
+          transition: 'transform 0.5s ease, opacity 0.5s ease',
+          pointerEvents: hasCarousel && isHovered ? 'none' : 'auto',
+        }}
+      >
+        {image && (
+          <div
+            className={`journey-card__illustration journey-card__illustration--${imagePosition}`}
+            aria-hidden
+          >
+            <img src={image} alt="" className="journey-card__person" />
+          </div>
+        )}
+        <div className="journey-card__content">
+          <h2 className="journey-card__title">{title}</h2>
+          <p className="journey-card__subtitle">{subtitle}</p>
+          <p className="journey-card__body">{body}</p>
+        </div>
+      </div>
     </div>
   )
 }

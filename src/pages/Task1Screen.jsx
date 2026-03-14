@@ -108,8 +108,8 @@ export default function Task1Screen() {
           margin: '0 auto',
         }}
       >
-        {JOURNEY_CARDS.map((card) => (
-          <JourneyCard key={card.id} {...card} />
+        {JOURNEY_CARDS.map((card, index) => (
+          <JourneyCard key={card.id} {...card} enableHoverAnimation={index < 2} />
         ))}
       </div>
     </PageLayout>

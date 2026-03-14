@@ -67,6 +67,16 @@ body {
   overflow: visible;
 }
 
+/* Front layer: sits on top of carousel, slides left and fades on hover (see JS) */
+.journey-card__front {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--journey-card-radius);
+  padding: var(--journey-card-padding);
+  min-height: 300px;
+}
+
 /* Illustration is the size of the card (full height, half width), sits in corner, overflows outside */
 .journey-card__illustration {
   position: absolute;
@@ -183,17 +193,16 @@ a {
   animation: shakeVertical 3s ease-in-out infinite;
 }
 
-/* Journey card carousel (on hover) - Figma design */
+/* Journey card carousel – sits underneath .journey-card__front, revealed on hover */
 .journey-card__carousel {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 0;
   border-radius: var(--journey-card-radius);
   padding: var(--journey-card-padding);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: center;
 }
 
 .journey-card__carousel-slide {
@@ -204,7 +213,7 @@ a {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 0 48px;
+  padding: 0 56px;
 }
 
 .journey-card__carousel-title {
@@ -236,7 +245,9 @@ a {
 }
 
 .journey-card__carousel-btn {
-  flex-shrink: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -248,6 +259,7 @@ a {
   align-items: center;
   justify-content: center;
   transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  z-index: 1;
 }
 
 .journey-card__carousel-btn:hover:not(:disabled) {
@@ -261,11 +273,11 @@ a {
 }
 
 .journey-card__carousel-btn--prev {
-  margin-right: 0;
+  left: 0;
 }
 
 .journey-card__carousel-btn--next {
-  margin-left: 0;
+  right: 0;
 }
 
 .journey-grid {
