@@ -32,8 +32,16 @@ const JOURNEY_CARDS = [
     image: '/assets/person_2.png',
     imagePosition: 'right',
     carouselSlides: [
-      { title: 'Focused faces—\nlearning mode: ON!', image: '/assets/person_2.png' },
-      { title: 'Hands-on projects,\nreal skills.', image: '/assets/person_2.png' },
+      {
+        layout: 'titleOverlay',
+        title: 'Focused faces—learning\n mode: ON!',
+        image: '/assets/person_4.png',
+      },
+      {
+        layout: 'titleOverlay',
+        title: 'Laptops, lessons, and a whole lot \nof growth!',
+        image: '/assets/person_5.png',
+      },
     ],
   },
   {

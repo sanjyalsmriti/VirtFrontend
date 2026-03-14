@@ -88,26 +88,48 @@ export function JourneyCard({
               </svg>
             </button>
           </div>
-          <div className={['journey-card__carousel-slide', slide?.layout === 'imageLeft' ? 'journey-card__carousel-slide--image-left' : '', carouselSlideClassName].filter(Boolean).join(' ')}>
+          <div className={['journey-card__carousel-slide', slide?.layout === 'imageLeft' ? 'journey-card__carousel-slide--image-left' : '', slide?.layout === 'rowEqual' ? 'journey-card__carousel-slide--row-equal' : '', slide?.layout === 'titleOverlay' ? 'journey-card__carousel-slide--title-overlay' : '', carouselSlideClassName].filter(Boolean).join(' ')}>
             {slide?.layout === 'imageLeft' ? (
               <>
                 {slide?.image && (
-                  <div className={['journey-card__carousel-image-wrap', carouselImageWrapClassName].filter(Boolean).join(' ')}>
-                    <img src={slide.image} alt="" className={['journey-card__carousel-image', carouselImageClassName].filter(Boolean).join(' ')} />
+                  <div className={['journey-card__carousel-image-wrap', slide.imageWrapClassName ?? carouselImageWrapClassName].filter(Boolean).join(' ')}>
+                    <img src={slide.image} alt="" className={['journey-card__carousel-image', slide.imageClassName ?? carouselImageClassName].filter(Boolean).join(' ')} />
                   </div>
                 )}
                 {slide?.title && (
-                  <h3 className={['journey-card__carousel-title', carouselTitleClassName].filter(Boolean).join(' ')}>{slide.title}</h3>
+                  <h3 className={['journey-card__carousel-title', slide.titleClassName ?? carouselTitleClassName].filter(Boolean).join(' ')}>{slide.title}</h3>
+                )}
+              </>
+            ) : slide?.layout === 'titleOverlay' ? (
+              <>
+                {slide?.title && (
+                  <h3 className={['journey-card__carousel-title', slide.titleClassName ?? carouselTitleClassName].filter(Boolean).join(' ')}>{slide.title}</h3>
+                )}
+                {slide?.image && (
+                  <div className={['journey-card__carousel-image-wrap', slide.imageWrapClassName ?? carouselImageWrapClassName].filter(Boolean).join(' ')}>
+                    <img src={slide.image} alt="" className={['journey-card__carousel-image', slide.imageClassName ?? carouselImageClassName].filter(Boolean).join(' ')} />
+                  </div>
+                )}
+              </>
+            ) : slide?.layout === 'rowEqual' ? (
+              <>
+                {slide?.title && (
+                  <h3 className={['journey-card__carousel-title', slide.titleClassName ?? carouselTitleClassName].filter(Boolean).join(' ')}>{slide.title}</h3>
+                )}
+                {slide?.image && (
+                  <div className={['journey-card__carousel-image-wrap', slide.imageWrapClassName ?? carouselImageWrapClassName].filter(Boolean).join(' ')}>
+                    <img src={slide.image} alt="" className={['journey-card__carousel-image', slide.imageClassName ?? carouselImageClassName].filter(Boolean).join(' ')} />
+                  </div>
                 )}
               </>
             ) : (
               <>
                 {slide?.title && (
-                  <h3 className={['journey-card__carousel-title', carouselTitleClassName].filter(Boolean).join(' ')}>{slide.title}</h3>
+                  <h3 className={['journey-card__carousel-title', slide.titleClassName ?? carouselTitleClassName].filter(Boolean).join(' ')}>{slide.title}</h3>
                 )}
                 {slide?.image && (
-                  <div className={['journey-card__carousel-image-wrap', carouselImageWrapClassName].filter(Boolean).join(' ')}>
-                    <img src={slide.image} alt="" className={['journey-card__carousel-image', carouselImageClassName].filter(Boolean).join(' ')} />
+                  <div className={['journey-card__carousel-image-wrap', slide.imageWrapClassName ?? carouselImageWrapClassName].filter(Boolean).join(' ')}>
+                    <img src={slide.image} alt="" className={['journey-card__carousel-image', slide.imageClassName ?? carouselImageClassName].filter(Boolean).join(' ')} />
                   </div>
                 )}
               </>
