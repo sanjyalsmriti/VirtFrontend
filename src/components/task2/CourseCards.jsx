@@ -51,9 +51,23 @@ export function CourseCards() {
           transform: hovered === 'all' ? 'scale(1.02)' : 'scale(1)',
           transition: 'transform 0.2s ease',
           cursor: 'pointer',
+          position: 'relative',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 'var(--space-sm)' }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: 'var(--space-sm)',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <img src="/assets/react.png" alt="" aria-hidden style={{ width: 28, height: 28, objectFit: 'contain' }} />
+            <img src="/assets/like_love.png" alt="" aria-hidden style={{ width: 28, height: 28, objectFit: 'contain' }} />
+            <img src="/assets/vue.js.png" alt="" aria-hidden style={{ width: 28, height: 28, objectFit: 'contain' }} />
+            <img src="/assets/pen.png" alt="" aria-hidden style={{ width: 28, height: 28, objectFit: 'contain' }} />
+          </div>
           <a
             href="#"
             style={{ color: '#fff', fontWeight: 600, fontSize: 'var(--text-sm)' }}
