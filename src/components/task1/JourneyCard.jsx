@@ -10,7 +10,7 @@ export function JourneyCard({
   carouselSlides = [],
   enableHoverAnimation = false,
 }) {
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = useState(true)
   const [currentSlide, setCurrentSlide] = useState(0)
 
   function handleMouseEnter() {
@@ -60,17 +60,22 @@ export function JourneyCard({
           }}
           aria-label="Carousel"
         >
-          <button
-            type="button"
-            className="journey-card__carousel-btn journey-card__carousel-btn--prev"
-            onClick={goPrev}
-            disabled={!canGoPrev}
-            aria-label="Previous slide"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
+          <div className="journey-card__carousel-btn-wrap journey-card__carousel-btn-wrap--prev">
+            <span className="journey-card__carousel-btn-shape" aria-hidden>
+            <div className='journey-card__carousel-btn-shape-svg'></div>
+            </span>
+            <button
+              type="button"
+              className="journey-card__carousel-btn journey-card__carousel-btn--prev"
+              onClick={goPrev}
+              disabled={!canGoPrev}
+              aria-label="Previous slide"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </div>
           <div className="journey-card__carousel-slide">
             {slide?.title && (
               <h3 className="journey-card__carousel-title">{slide.title}</h3>
@@ -81,17 +86,22 @@ export function JourneyCard({
               </div>
             )}
           </div>
-          <button
-            type="button"
-            className="journey-card__carousel-btn journey-card__carousel-btn--next"
-            onClick={goNext}
-            disabled={!canGoNext}
-            aria-label="Next slide"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
+          <div className="journey-card__carousel-btn-wrap journey-card__carousel-btn-wrap--next">
+            <span className="journey-card__carousel-btn-shape" aria-hidden>
+              <div className='journey-card__carousel-btn-shape-svg'></div>
+            </span>
+            <button
+              type="button"
+              className="journey-card__carousel-btn journey-card__carousel-btn--next"
+              onClick={goNext}
+              disabled={!canGoNext}
+              aria-label="Next slide"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </div>
         </div>
       )}
 

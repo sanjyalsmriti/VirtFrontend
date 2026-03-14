@@ -103,7 +103,7 @@ export default function Task1Screen() {
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: 32,
+          gap: 40,
           maxWidth: 960,
           margin: '0 auto',
         }}
