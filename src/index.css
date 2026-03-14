@@ -4,12 +4,19 @@
   --color-bg: #ffffff;
   --color-text: #111111;
   --color-text-muted: #6b7280;
-  /* Task 1 - Journey cards */
-  --color-card-red: #f15756;
-  --color-card-teal: #52bdaf;
-  --color-card-purple: #5d3fb4;
-  --color-card-tan: #c7a06f;
-  --color-tagline-green: #22c55e;
+  /* Task 1 - Journey cards (pixel-perfect to target design) */
+  --color-card-red: #EE505B;
+  --color-card-teal: #4FD1C5;
+  --color-card-purple: #6B46C1;
+  --color-card-tan: #B8906A;
+  --color-tagline-green: #38A169;
+  --journey-card-radius: 24px;
+  --journey-card-padding: 32px;
+  --journey-title-size: 1.5rem;
+  --journey-subtitle-size: 1.125rem;
+  --journey-body-size: 0.875rem;
+  --journey-title-spacing: 8px;
+  --journey-subtitle-spacing: 12px;
   /* Task 2 - Course cards */
   --color-primary-red: #e73a4f;
   --color-card-light-pink: #fbebeb;
@@ -51,9 +58,218 @@ body {
   color: var(--color-text);
 }
 
+/* Task 1 journey card - illustration in bottom corner, overflow outside (pixel-perfect) */
+.journey-card {
+  position: relative;
+  border-radius: var(--journey-card-radius);
+  padding: var(--journey-card-padding);
+  min-height: 300px;
+  overflow: visible;
+}
+
+/* Illustration is the size of the card (full height, half width), sits in corner, overflows outside */
+.journey-card__illustration {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 52%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.journey-card__illustration--left {
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.journey-card__illustration--left .journey-card__person {
+  margin-left: -24px;
+  margin-bottom: -56px;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: contain;
+  object-position: bottom left;
+  display: block;
+}
+
+.journey-card__illustration--right {
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.journey-card__illustration--right .journey-card__person {
+  margin-right: -24px;
+  margin-bottom: -56px;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: contain;
+  object-position: bottom right;
+  display: block;
+}
+
+.journey-card__person {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.journey-card__content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Text on right when illustration is bottom-left */
+.journey-card__illustration--left ~ .journey-card__content {
+  margin-left: 50%;
+  max-width: 50%;
+}
+
+/* Text on left when illustration is bottom-right */
+.journey-card__illustration--right ~ .journey-card__content {
+  max-width: 50%;
+}
+
+.journey-card__title {
+  font-size: var(--journey-title-size);
+  font-weight: 700;
+  margin-bottom: var(--journey-title-spacing);
+  color: #fff;
+  line-height: 1.2;
+}
+
+.journey-card__subtitle {
+  font-size: var(--journey-subtitle-size);
+  font-weight: 400;
+  margin-bottom: var(--journey-subtitle-spacing);
+  color: #fff;
+  opacity: 0.98;
+  line-height: 1.3;
+}
+
+.journey-card__body {
+  font-size: var(--journey-body-size);
+  font-weight: 400;
+  color: #fff;
+  opacity: 0.98;
+  line-height: 1.6;
+}
+
+.journey-card__title,
+.journey-card__subtitle,
+.journey-card__body {
+  text-align: left;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+@keyframes shakeVertical {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-4px); }
+  50% { transform: translateY(4px); }
+  75% { transform: translateY(-2px); }
+}
+
+.journey-card__person {
+  animation: shakeVertical 3s ease-in-out infinite;
+}
+
+/* Journey card carousel (on hover) - Figma design */
+.journey-card__carousel {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: var(--journey-card-radius);
+  padding: var(--journey-card-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.journey-card__carousel-slide {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0 48px;
+}
+
+.journey-card__carousel-title {
+  font-size: var(--journey-title-size);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: var(--journey-subtitle-spacing);
+  white-space: pre-line;
+  text-align: left;
+}
+
+.journey-card__carousel-image-wrap {
+  flex: 1;
+  width: 100%;
+  min-height: 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.journey-card__carousel-image {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: bottom left;
+}
+
+.journey-card__carousel-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.journey-card__carousel-btn:hover:not(:disabled) {
+  background: #f5f5f5;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.journey-card__carousel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.journey-card__carousel-btn--prev {
+  margin-right: 0;
+}
+
+.journey-card__carousel-btn--next {
+  margin-left: 0;
+}
+
+.journey-grid {
+  overflow: visible;
 }
 
 @media (max-width: 768px) {

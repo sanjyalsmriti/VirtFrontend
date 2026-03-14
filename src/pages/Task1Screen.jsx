@@ -10,6 +10,12 @@ const JOURNEY_CARDS = [
     subtitle: 'Step into a better learning path.',
     body: "Overwhelmed by too many learning options? SkillShikshya provides a clear, curated roadmap from the start. Whether you're a beginner or upskilling, we have a path tailored to your growth.",
     bgColor: 'var(--color-card-red)',
+    image: '/assets/person_1.png',
+    imagePosition: 'left',
+    carouselSlides: [
+      { title: 'Your roadmap,\nclear from day one.', image: '/assets/person_1.png' },
+      { title: 'Curated paths\nfor every goal.', image: '/assets/person_1.png' },
+    ],
   },
   {
     id: 'doing',
@@ -17,6 +23,12 @@ const JOURNEY_CARDS = [
     subtitle: 'Practical skills, real projects.',
     body: "Theory is great, but action is better. At SkillShikshya, you learn by doing. Hands-on projects and real-world scenarios help you build, break, and create—leading to true mastery.",
     bgColor: 'var(--color-card-teal)',
+    image: '/assets/person_2.png',
+    imagePosition: 'right',
+    carouselSlides: [
+      { title: 'Focused faces—\nlearning mode: ON!', image: '/assets/person_2.png' },
+      { title: 'Hands-on projects,\nreal skills.', image: '/assets/person_2.png' },
+    ],
   },
   {
     id: 'mentored',
@@ -24,6 +36,12 @@ const JOURNEY_CARDS = [
     subtitle: "You're not learning alone.",
     body: "Stuck or need feedback? SkillShikshya's community of mentors and learners has your back with live support, interactive discussions, and expert insights. You're never on your own.",
     bgColor: 'var(--color-card-purple)',
+    image: '/assets/person_11.png',
+    imagePosition: 'left',
+    carouselSlides: [
+      { title: "Mentors & peers—\nyou're not alone.", image: '/assets/person_11.png' },
+      { title: 'Live support\nwhen you need it.', image: '/assets/person_11.png' },
+    ],
   },
   {
     id: 'achieve',
@@ -31,6 +49,12 @@ const JOURNEY_CARDS = [
     subtitle: 'Build your portfolio, get job-ready.',
     body: "Your journey ends with achievement. Each completed project builds a portfolio showcasing your skills and job readiness, bringing you closer to that dream job, promotion, or your own venture.",
     bgColor: 'var(--color-card-tan)',
+    image: '/assets/person_22.png',
+    imagePosition: 'right',
+    carouselSlides: [
+      { title: 'Build your portfolio,\nget job-ready.', image: '/assets/person_22.png' },
+      { title: 'Showcase skills.\nLand the role.', image: '/assets/person_22.png' },
+    ],
   },
 ]
 
@@ -60,26 +84,28 @@ export default function Task1Screen() {
       </p>
       <h1
         style={{
-          fontSize: 'var(--text-2xl)',
+          fontSize: 'var(--text-3xl)',
           fontWeight: 700,
-          marginBottom: 'var(--space-md)',
+          marginBottom: 'var(--space-lg)',
           display: 'flex',
           alignItems: 'center',
           gap: 'var(--space-sm)',
           flexWrap: 'wrap',
         }}
       >
-        <span style={{ color: 'var(--color-tagline-green)' }}>Step In.</span>
-        <span>Skill Up.</span>
-        <span style={{ color: 'var(--color-tagline-green)' }}>Stand Out.</span>
+        <span style={{ color: 'var(--color-text)' }}>Step In.</span>
+        <span style={{ color: 'var(--color-tagline-green)' }}>Skill Up.</span>
+        <span style={{ color: 'var(--color-text)' }}>Stand Out.</span>
         <span aria-hidden>🚀</span>
       </h1>
       <div
         className="journey-grid"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: 'var(--space-lg)',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 32,
+          maxWidth: 960,
+          margin: '0 auto',
         }}
       >
         {JOURNEY_CARDS.map((card) => (
