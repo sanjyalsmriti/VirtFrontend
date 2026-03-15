@@ -9,7 +9,7 @@ const JOURNEY_CARDS = [
     title: 'Start with Clarity',
     subtitle: 'Step into a better learning path.',
     body: "Overwhelmed by too many learning options? SkillShikshya provides a clear, curated roadmap from the start. Whether you're a beginner or upskilling, we have a path tailored to your growth.",
-    bgColor: 'var(--color-card-red)',
+    bgColor: '#F45B5B',
     image: '/assets/person_1.png',
     imagePosition: 'left',
     showWowBubbles: true,
@@ -28,7 +28,7 @@ const JOURNEY_CARDS = [
     title: 'Learn by Doing',
     subtitle: 'Practical skills, real projects.',
     body: "Theory is great, but action is better. At SkillShikshya, you learn by doing. Hands-on projects and real-world scenarios help you build, break, and create—leading to true mastery.",
-    bgColor: 'var(--color-card-teal)',
+    bgColor: '#5492A0',
     image: '/assets/person_2.png',
     imagePosition: 'right',
     carouselSlides: [
@@ -49,7 +49,7 @@ const JOURNEY_CARDS = [
     title: 'Get Mentored & Supported',
     subtitle: "You're not learning alone.",
     body: "Stuck or need feedback? SkillShikshya's community of mentors and learners has your back with live support, interactive discussions, and expert insights. You're never on your own.",
-    bgColor: 'var(--color-card-purple)',
+    bgColor: '#6C64A8',
     image: '/assets/person_11.png',
     imagePosition: 'left',
     carouselSlides: [
@@ -62,7 +62,7 @@ const JOURNEY_CARDS = [
     title: 'Achieve & Showcase',
     subtitle: 'Build your portfolio, get job-ready.',
     body: "Your journey ends with achievement. Each completed project builds a portfolio showcasing your skills and job readiness, bringing you closer to that dream job, promotion, or your own venture.",
-    bgColor: 'var(--color-card-tan)',
+    bgColor: '#A88964',
     image: '/assets/person_22.png',
     imagePosition: 'right',
     carouselSlides: [
@@ -118,7 +118,6 @@ export default function Task1Screen() {
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: 40,
-          maxWidth: 960,
           margin: '0 auto',
         }}
       >

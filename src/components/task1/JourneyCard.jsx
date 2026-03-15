@@ -16,7 +16,7 @@ export function JourneyCard({
   carouselImageWrapClassName,
   carouselImageClassName,
 }) {
-  const [isHovered, setIsHovered] = useState(true)
+  const [isHovered, setIsHovered] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
 
   function handleMouseEnter() {
