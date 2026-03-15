@@ -83,50 +83,28 @@ export function CourseCards() {
               transition: isJustActivated ? 'none' : isActive ? 'color 0.3s ease, width 0.45s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.45s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease' : 'none',
             }}
           >
-            {/* Hover on inactive card: "Click me!" text (outside card) + image (between text and card), top middle */}
             {!isActive && (
               <div className="course-card__hover-prompt" aria-hidden>
                 <span className="course-card__hover-prompt-text">Click me!</span>
                 <img src="/assets/clickme.png" alt="" className="course-card__hover-prompt-img" />
               </div>
             )}
-            <div className="course-card__content" style={{ display: 'flex', flexDirection: 'column', justifyContent: isActive ? 'space-between' : undefined, alignItems: isActive ? 'stretch' : 'center', flex: 1}}>
+            <div className="course-card__content" style={{ display: 'flex', flexDirection: 'column', justifyContent: isActive ? 'space-between' : undefined, alignItems: isActive ? 'stretch' : undefined, flex: 1, minHeight: 0 }}>
             {isActive ? (
               <>
                 <a
                   href="#"
                   className="course-card__link course-card__content-movable"
-                  style={{
-                    color: 'var(--course-card-active-text)',
-                    fontFamily: 'Outfit, var(--font-sans)',
-                    fontWeight: 600,
-                    fontSize: 'var(--course-card-link-size)',
-                    lineHeight: '100%',
-                    letterSpacing: '0%',
-                    textAlign: 'right',
-                  }}
                   onClick={(e) => e.stopPropagation()}
                 >
                   View all Courses{' '}
-                  <span className="course-card__arrow" aria-hidden>
-                    →
-                  </span>
+                  <span className="course-card__arrow" aria-hidden>→</span>
                 </a>
-                <div
-                  className="course-card__icons course-card__content-movable"
-                  style={{
-                    display: 'flex',
-                    gap: 'var(--course-card-icons-gap)',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    minHeight: 94,
-                  }}
-                >
-                  <img src="/assets/react.png" alt="" aria-hidden style={{ objectFit: 'contain' }} />
-                  <img src="/assets/like_love.png" alt="" aria-hidden style={{ objectFit: 'contain' }} />
-                  <img src="/assets/vue.js.png" alt="" aria-hidden style={{ objectFit: 'contain' }} />
-                  <img src="/assets/pen.png" alt="" aria-hidden style={{ objectFit: 'contain' }} />
+                <div className="course-card__icons course-card__content-movable">
+                  <img src="/assets/react.png" alt="" aria-hidden />
+                  <img src="/assets/like_love.png" alt="" aria-hidden />
+                  <img src="/assets/vue.js.png" alt="" aria-hidden />
+                  <img src="/assets/pen.png" alt="" aria-hidden />
                 </div>
                 <div className="course-card__bottom" style={{ display: 'flex',alignItems: 'center' }}>
                   <span className="course-card__count-wrap" style={{ color: 'var(--course-card-active-text)' }}>
@@ -135,50 +113,18 @@ export function CourseCards() {
                   </span>
                   {isActive && (
                     <div className="course-card__title-desc course-card__content-movable">
-                      <p
-                        className="course-card__title-text"
-                        style={{
-                          fontFamily: 'Outfit, var(--font-sans)',
-                          fontWeight: 700,
-                          fontSize: 'var(--course-card-title-size)',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          margin: 0,
-                          color: 'var(--course-card-active-text)',
-                          whiteSpace: 'pre-line',
-                        }}
-                      >
-                        {card.title}
-                      </p>
-                      <p
-                        style={{
-                          fontFamily: 'Outfit, var(--font-sans)',
-                          fontWeight: 400,
-                          fontSize: 'var(--course-card-desc-size)',
-                          lineHeight: '100%',
-                          letterSpacing: '0%',
-                          margin: 0,
-                          color: 'var(--course-card-active-text)',
-                          whiteSpace: 'pre-line',
-                        }}
-                      >
-                        {card.description}
-                      </p>
+                      <p className="course-card__title-text">{card.title}</p>
+                      <p>{card.description}</p>
                     </div>
                   )}
                 </div>
               </>
             ) : (
               <>
-                {/* Left: title + supporting text rotated 90° vertical, bottom-to-top, bold + lighter hierarchy */}
                 <div className="course-card__inactive-vertical-wrap">
                   <div className="course-card__inactive-vertical-text">
-                    <p className="course-card__inactive-title" style={{ fontFamily: 'Outfit, var(--font-sans)', fontWeight: 700, fontSize: 'var(--course-card-title-size)', lineHeight: '100%', color: 'var(--Secondary-500)', margin: 0, whiteSpace: 'pre-line' }}>
-                      {card.title}
-                    </p>
-                    <p className="course-card__inactive-desc" style={{ fontFamily: 'Outfit, var(--font-sans)', fontWeight: 400, fontSize: 'var(--course-card-desc-size)', lineHeight: '100%', color: 'var(--Secondary-500)', margin: 0, whiteSpace: 'pre-line' }}>
-                      {card.description}
-                    </p>
+                    <p className="course-card__inactive-title">{card.title}</p>
+                    <p className="course-card__inactive-desc">{card.description}</p>
                   </div>
                 </div>
                 <span className="course-card__count-wrap" style={{ color: 'var(--Secondary-500)' }}>

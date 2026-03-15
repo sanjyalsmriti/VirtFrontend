@@ -75,38 +75,10 @@ const JOURNEY_CARDS = [
 export default function Task1Screen() {
   return (
     <PageLayout>
-      <Link
-        to="/"
-        style={{
-          display: 'inline-block',
-          marginBottom: 'var(--space-lg)',
-          fontSize: 'var(--text-sm)',
-          color: 'var(--color-text-muted)',
-        }}
-      >
-        ← Home
-      </Link>
+      <Link to="/" className="page-back-link">← Home</Link>
       <Note>Note: Hover the component to view the animation &amp; Click the arrow icon</Note>
-      <p
-        style={{
-          fontSize: 'var(--text-sm)',
-          color: 'var(--color-text-muted)',
-          marginBottom: 'var(--space-sm)',
-        }}
-      >
-        Your SkillShikshya Journey
-      </p>
-      <h1
-        style={{
-          fontSize: 'var(--text-3xl)',
-          fontWeight: 700,
-          marginBottom: 'var(--space-lg)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--space-sm)',
-          flexWrap: 'wrap',
-        }}
-      >
+      <p className="page-subtitle">Your SkillShikshya Journey</p>
+      <h1 className="page-title page-title--lg">
         <span style={{ color: 'var(--color-text)' }}>Step In.</span>
         <span style={{ color: 'var(--color-tagline-green)' }}>Skill Up.</span>
         <span style={{ color: 'var(--color-text)' }}>Stand Out.</span>

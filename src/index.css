@@ -42,8 +42,6 @@
   --course-card-arrow-width: 14px;
   --course-card-arrow-height: 11.67px;
   --course-card-icons-gap: 42px;
-  --course-card-icons-top: 126px;
-  --course-card-icons-left: 66px;
   --course-card-plus-size: 64px;
   --course-card-inner-gap: 24px;
   --course-card-padding-block: 41px;
@@ -86,7 +84,52 @@ body {
   color: var(--color-text);
 }
 
-/* Task 1 journey card - illustration in bottom corner, overflow outside (pixel-perfect) */
+/* Reusable page/screen styles */
+.page-back-link {
+  display: inline-block;
+  margin-bottom: var(--space-lg);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.page-back-link:hover {
+  color: var(--color-text);
+}
+
+.page-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.page-subtitle--dark {
+  color: var(--color-text);
+}
+
+.page-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.page-title--lg {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-lg);
+}
+
+.note {
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-md);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Task 1: Journey cards */
 .journey-card {
   position: relative;
   border-radius: var(--journey-card-radius);
@@ -156,6 +199,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  animation: shakeVertical 3s ease-in-out infinite;
 }
 
 .journey-card__content {
@@ -222,28 +266,29 @@ a {
   75% { transform: translateY(-2px); }
 }
 
-@keyframes shakeHorizontal {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  50% { transform: translateX(4px); }
-  75% { transform: translateX(-2px); }
-}
-
-.journey-card__person {
-  animation: shakeVertical 3s ease-in-out infinite;
-}
-
-.course-cards__arrow-shake {
-  padding: 0 10px;
-  display: inline-block;
-  animation: shakeHorizontal 1.5s ease-in-out infinite;
-}
-
-/* Active course card: pixel-perfect typography and layout */
+/* Task 2: Course cards */
 .course-card__link {
-  letter-spacing: 0;
   display: block;
+  font-family: Outfit, var(--font-sans);
+  font-weight: 600;
+  font-size: var(--course-card-link-size);
+  line-height: 100%;
+  letter-spacing: 0;
   text-align: right;
+  color: var(--course-card-active-text);
+}
+
+.course-card__icons {
+  display: flex;
+  gap: var(--course-card-icons-gap);
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 94px;
+}
+
+.course-card__icons img {
+  object-fit: contain;
 }
 
 .course-card__arrow {
@@ -282,6 +327,28 @@ a {
   margin-top: -0.2em;
 }
 
+.course-card__title-text {
+  font-family: Outfit, var(--font-sans);
+  font-weight: 700;
+  font-size: var(--course-card-title-size);
+  line-height: 100%;
+  letter-spacing: 0;
+  margin: 0;
+  color: var(--course-card-active-text);
+  white-space: pre-line;
+}
+
+.course-card__title-desc .course-card__title-text + p {
+  font-family: Outfit, var(--font-sans);
+  font-weight: 400;
+  font-size: var(--course-card-desc-size);
+  line-height: 100%;
+  letter-spacing: 0;
+  margin: 0;
+  color: var(--course-card-active-text);
+  white-space: pre-line;
+}
+
 /* Active: red circle expands from bottom-left to top-right (circle at 0% 100%) */
 @keyframes courseCardRedInFromBottomLeft {
   0% {
@@ -289,26 +356,6 @@ a {
   }
   100% {
     clip-path: circle(250% at 0% 100%);
-  }
-}
-
-/* Inactive: pink circle expands from bottom-left, covering red */
-@keyframes courseCardPinkInFromBottomLeft {
-  0% {
-    clip-path: circle(0% at 0% 100%);
-  }
-  100% {
-    clip-path: circle(250% at 0% 100%);
-  }
-}
-
-/* Inactive: pink (with content) reveals from top-right toward bottom-left, smooth transition */
-@keyframes courseCardPinkRevealFromTopRight {
-  0% {
-    clip-path: circle(0% at 100% 0%);
-  }
-  100% {
-    clip-path: circle(250% at 100% 0%);
   }
 }
 
@@ -377,12 +424,24 @@ a {
 
 .course-card__inactive-title {
   margin: 0;
+  font-family: Outfit, var(--font-sans);
+  font-weight: 700;
+  font-size: var(--course-card-title-size);
+  line-height: 100%;
+  color: var(--Secondary-500);
+  white-space: pre-line;
 }
 
 .course-card__inactive-desc {
   margin: 0;
   margin-top: var(--course-card-inner-gap);
   opacity: 0.9;
+  font-family: Outfit, var(--font-sans);
+  font-weight: 400;
+  font-size: var(--course-card-desc-size);
+  line-height: 100%;
+  color: var(--Secondary-500);
+  white-space: pre-line;
 }
 
 /* Archer effect: link and icons only (not count, not title-desc) */
@@ -416,33 +475,6 @@ a {
   will-change: transform, opacity;
 }
 
-/* Horizontal → vertical: when card becomes inactive, horizontal text rotates into vertical */
-@keyframes courseCardHorizontalToVertical {
-  from {
-    transform: rotate(90deg);
-    opacity: 0.5;
-  }
-  to {
-    transform: rotate(180deg);
-    opacity: 1;
-  }
-}
-
-/* Wrapper keeps rotating block centered for the whole animation */
-.course-card__inactive-reveal-text {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.course-card__inactive-reveal-text-inner {
-  transform: rotate(180deg);
-  transform-origin: center center;
-  text-align: center;
-  animation: none;
-}
-
 /* Card becoming ACTIVE: red circle expands from bottom-left to top-right, covering pink */
 .course-card--animate-in::before {
   content: "";
@@ -458,31 +490,11 @@ a {
   transform: translateZ(0);
 }
 
-/* Inactive overlay: no animation, show instantly */
-.course-card__inactive-reveal {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: var(--Secondary-50);
-  padding: var(--course-card-padding-block) var(--course-card-padding-inline);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-  pointer-events: none;
-}
-
 .course-card--animate-in {
   transition: none !important;
 }
 
-/* Inactive card hover: section at top middle – text outside card, image between text and card */
 .course-card--inactive {
-  overflow: visible;
-}
-
-.course-card--inactive:hover {
   overflow: visible;
 }
 
