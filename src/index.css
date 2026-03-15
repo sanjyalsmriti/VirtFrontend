@@ -39,9 +39,16 @@
   --course-card-title-size: 32px;
   --course-card-desc-size: 18px;
   --course-card-link-size: 18px;
+  --course-card-arrow-width: 14px;
+  --course-card-arrow-height: 11.67px;
+  --course-card-icons-gap: 42px;
+  --course-card-icons-top: 126px;
+  --course-card-icons-left: 66px;
+  --course-card-plus-size: 64px;
   --course-card-inner-gap: 24px;
   --course-card-padding-block: 41px;
   --course-card-padding-inline: 35.5px;
+  --course-card-active-text: #FFFFFF;
   /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -232,6 +239,49 @@ a {
   animation: shakeHorizontal 1.5s ease-in-out infinite;
 }
 
+/* Active course card: pixel-perfect typography and layout */
+.course-card__link {
+  letter-spacing: 0;
+  display: block;
+  text-align: right;
+}
+
+.course-card__arrow {
+  display: inline-block;
+  width: var(--course-card-arrow-width);
+  height: var(--course-card-arrow-height);
+  line-height: var(--course-card-arrow-height);
+  font-size: 11.67px;
+  text-align: center;
+  vertical-align: middle;
+  margin-left: 3px;
+}
+
+.course-card__count-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.02em;
+  font-family: var(--course-card-count-font);
+  font-weight: 700;
+  line-height: var(--course-card-count-lh);
+  font-size: var(--course-card-count-size);
+}
+
+.course-card__count {
+  flex-shrink: 0;
+  font-size: 1em;
+}
+
+/* + as superscript (power of count), e.g. 23⁺ */
+.course-card__count-plus {
+  font-size: 0.42em;
+  vertical-align: super;
+  line-height: 1;
+  margin-left: 0.02em;
+  align-self: flex-start;
+  margin-top: -0.2em;
+}
+
 /* Active: red circle expands from bottom-left to top-right (circle at 0% 100%) */
 @keyframes courseCardRedInFromBottomLeft {
   0% {
@@ -262,19 +312,13 @@ a {
   }
 }
 
-/* Content other than count moves forward slightly then settles (shake) */
-@keyframes courseCardContentShakeForward {
+/* Archer effect: go forward then back with slight rotation */
+@keyframes courseCardArcherEffect {
   0%, 100% {
-    transform: translateX(0);
+    transform: translateX(0) rotate(0deg);
   }
-  20% {
-    transform: translateX(6px);
-  }
-  45% {
-    transform: translateX(-2px);
-  }
-  70% {
-    transform: translateX(3px);
+  50% {
+    transform: translateX(12px) rotate(2deg);
   }
 }
 
@@ -291,20 +335,112 @@ a {
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
 }
 
-.course-card__count {
+/* Inactive: vertical text on left, count centered at bottom; no transition or movement */
+.course-card--inactive .course-card__content {
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--course-card-inner-gap);
+  transition: none !important;
+}
+
+.course-card--inactive .course-card__inactive-vertical-wrap,
+.course-card--inactive .course-card__inactive-vertical-text,
+.course-card--inactive .course-card__count-wrap {
+  transition: none !important;
+}
+
+/* Vertical block: left-aligned to match design */
+.course-card__inactive-vertical-wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: fit-content;
+  min-width: 0;
+}
+
+/* Count: centered at bottom */
+.course-card--inactive .course-card__content > .course-card__count-wrap {
+  align-self: center;
+}
+
+.course-card__inactive-vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: left;
+  width: auto;
+  max-width: calc(var(--course-card-passive-width) - 2 * var(--course-card-padding-inline));
+  box-sizing: border-box;
+  animation: none;
+  transition: none;
   flex-shrink: 0;
 }
 
-/* Card becoming active: only content other than count moves forward slightly; count stays fixed */
-.course-card--animate-in .course-card__content-movable {
-  animation: courseCardContentShakeForward 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.course-card__inactive-title {
+  margin: 0;
+}
+
+.course-card__inactive-desc {
+  margin: 0;
+  margin-top: var(--course-card-inner-gap);
+  opacity: 0.9;
+}
+
+/* Archer effect: link and icons only (not count, not title-desc) */
+.course-card--animate-in .course-card__link,
+.course-card--animate-in .course-card__icons {
+  animation: courseCardArcherEffect 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   will-change: transform;
 }
 
-/* Card becoming inactive: red stays visible; overlay reveals pink + inactive content (red text) from top-right – smooth, not blank */
-.course-card--animate-out .course-card__content-movable {
-  animation: courseCardContentShakeForward 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  will-change: transform;
+/* No animation when card becomes inactive (upcoming) */
+.course-card--animate-out .course-card__link,
+.course-card--animate-out .course-card__icons {
+  animation: none;
+}
+
+/* Vertical → horizontal: when card becomes active, title/description "lie down" from vertical to horizontal */
+@keyframes courseCardVerticalToHorizontal {
+  from {
+    transform: rotate(-90deg);
+    opacity: 0.6;
+  }
+  to {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.course-card--animate-in .course-card__title-desc {
+  animation: courseCardVerticalToHorizontal 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: left center;
+  will-change: transform, opacity;
+}
+
+/* Horizontal → vertical: when card becomes inactive, horizontal text rotates into vertical */
+@keyframes courseCardHorizontalToVertical {
+  from {
+    transform: rotate(90deg);
+    opacity: 0.5;
+  }
+  to {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Wrapper keeps rotating block centered for the whole animation */
+.course-card__inactive-reveal-text {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.course-card__inactive-reveal-text-inner {
+  transform: rotate(180deg);
+  transform-origin: center center;
+  text-align: center;
+  animation: none;
 }
 
 /* Card becoming ACTIVE: red circle expands from bottom-left to top-right, covering pink */
@@ -322,7 +458,7 @@ a {
   transform: translateZ(0);
 }
 
-/* Inactive overlay: pink + inactive content (red text) reveals from top-right; smooth transition */
+/* Inactive overlay: no animation, show instantly */
 .course-card__inactive-reveal {
   position: absolute;
   inset: 0;
@@ -331,13 +467,10 @@ a {
   padding: var(--course-card-padding-block) var(--course-card-padding-inline);
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  clip-path: circle(0% at 100% 0%);
-  animation: courseCardPinkRevealFromTopRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  justify-content: center;
+  align-items: center;
   z-index: 2;
   pointer-events: none;
-  will-change: clip-path;
-  transform: translateZ(0);
 }
 
 .course-card--animate-in {
